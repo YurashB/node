@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "",
+    "start": "node index.js",
+    "build": "node index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "npx prettier . --check",
