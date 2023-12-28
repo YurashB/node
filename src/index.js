@@ -4,7 +4,7 @@ import { post } from "./methods/post.js";
 import { put } from "./methods/put.js";
 import { deleteR } from "./methods/delete.js";
 import { posts } from "./database.js";
-import { getBody } from "./getBody.js";
+import { getBody } from "./middlewares/getBody.js";
 
 const PORT = process.env.PORT || 4000;
 
@@ -16,7 +16,7 @@ server.on("request", (request, response) => {
 
   switch (request.method) {
     case "GET":
-      getBody(request, response, get);
+      get(request, response);
       break;
 
     case "POST":
@@ -32,7 +32,6 @@ server.on("request", (request, response) => {
       break;
 
     default:
-      // Send response for requests with no other response
       response.statusCode = 400;
       response.write("No Response");
       response.end();
