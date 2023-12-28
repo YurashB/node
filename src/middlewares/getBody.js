@@ -14,17 +14,17 @@ export function getBody(request, response, next) {
       if (request.headers["content-type"] === "application/json") {
         request.body = JSON.parse(request.body);
         validatePost(request.body);
+        next(request, response);
       } else if (
         request.headers["content-type"] === "application/x-www-form-urlencoded"
       ) {
         request.body = qs.parse(request.body);
         validatePost(request.body);
+        next(request, response);
       } else {
         response.statusCode = 415;
         response.end();
       }
-
-      next(request, response);
     } catch (e) {
       response.statusCode = 400;
       response.setHeader("Content-Type", "application/json");
