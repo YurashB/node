@@ -10,13 +10,15 @@ export function getBody(request, response, next) {
   request.on("end", () => {
     request.body = Buffer.concat(data).toString();
 
+    const contentType = request.headers['content-type'].split(';')[0]
+
     try {
-      if (request.headers["content-type"] === "application/json") {
+      if (contentType === "application/json") {
         request.body = JSON.parse(request.body);
         validatePost(request.body);
         next(request, response);
       } else if (
-        request.headers["content-type"] === "application/x-www-form-urlencoded"
+        contentType === "application/x-www-form-urlencoded"
       ) {
         request.body = qs.parse(request.body);
         validatePost(request.body);

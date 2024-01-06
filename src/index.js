@@ -41,3 +41,14 @@ server.on("request", (request, response) => {
 server.listen(PORT, (err) => {
   err ? console.error(err) : console.log(`listening on port ${PORT}`);
 });
+
+process.on('SIGINT', () => {
+    server.close((e) => {
+        if (e) {
+            console.log(e)
+            process.exit(1)
+        }
+        console.log('\nServer was stopped!')
+        process.exit(0)
+    })
+})
